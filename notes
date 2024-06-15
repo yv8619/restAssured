@@ -1,1 +1,31 @@
 
+Response response = RestAssured.given().log().all()
+                      .baseUri(" ").contentType(ContentType.JSON)
+                      .body(" ").post()
+                      .then().log().all().extract().response();
+Assert.assertEquals(response.statusCode(),200);
+
+- since headers are in the form of key-pair, we use string of map to handle headers.
+public static getRequestSpecification(Map<String, ?> headers) {
+}
+
+# if you want to store response in a variable so that using it we can make another api call we use extract().response() method.
+Response response = assertThat().statusCode(200).extract().response();
+s.o.u.t(resposne.asString());
+
+## ObjectMapper()
+ObjectMapper is a central class in the Jackson library used for reading and writing JSON. It provides functionality to convert Java objects into JSON and JSON 
+into Java objects.
+Key Features
+Serialization: Converting a Java object into JSON.
+Deserialization: Converting JSON into a Java object.
+
+// Convert Java object to JSON
+ObjectMapper objectMapper = new ObjectMapper();
+Person person = new Person("John", 30);
+String jsonString = objectMapper.writeValueAsString(person);
+System.out.println(jsonString);
+
+// Convert JSON to Java object
+Person person = objectMapper.readValue(jsonString, Person.class);
+System.out.println(person.getName());
