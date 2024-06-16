@@ -1,0 +1,60 @@
+why rest assured ?
+Its a java library for api automation testing. its an open source tool.
+As it a java library it Can be easily integrated with testng, maven, junit, allure report.
+It has the ability to verify http responses.
+rest assured follows bdd approach which makes readabiltiy easy.
+
+## what is static import in rest assured ?
+ static imports are used to improve the readability and simplicity of your test code.Rest Assured makes extensive use of static methods to build HTTP requests 
+ and assert responses. 
+
+import static io.restassured.RestAssured.*;
+
+public class ApiTest {
+    @Test
+    public void testGetUser() {
+        given().baseUri("https").
+        when().get("/users/1").
+        then().statusCode(200);
+    }
+}
+
+##  what are the authentications available ?
+- basic authetication
+- form based
+- OAuth1
+- OAuth2
+
+## how to check response time in API ?
+response.getTime();
+response.getTimeIn(TimeUnit.SECONDS);
+
+## how to verify cookie, header and content type in api response ?
+
+
+## What is the difference between given() and when() in Rest Assured?
+given() is used to set up the request, while when() is used to send the request.
+
+## how to handle response in rest assured ?
+
+## how to handle payload request ?
+
+## how to handle token and ssl cert in rest assured ?
+
+## what is Request specification ?
+
+
+## explain serialization and Desearalization ?
+
+
+
+
+
+
+
+
+
+
+
+
+
