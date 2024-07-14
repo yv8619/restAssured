@@ -84,8 +84,75 @@ testing environments but is not recommended for production.
 response.getTime();
 response.getTimeIn(TimeUnit.SECONDS);
 
-## What is the difference between given() and when() in Rest Assured?
+# What is the difference between given() and when() in Rest Assured?
 given() is used to set up the request, while when() is used to send the request.
+
+# How do you perform a POST request with a JSON payload in Rest Assured ?
+
+
+
+# how to perform schema validation ?
+If you want to validate that a JSON response conforms to a Json Schema you can use the json-schema-validator module
+get("/products").then().assertThat().body(matchesJsonSchemaInClasspath("products-schema.json"));
+
+<dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>json-schema-validator</artifactId>
+      <version>5.5.0</version>
+      <scope>test</scope>
+</dependency>
+
+# Explain the concept of Request Specification and Response Specification in Rest Assured ?
+A RequestSpecification allows you to define common configurations for your HTTP requests, such as base URI,
+headers, authentication, and other settings. Once defined, you can reuse this specification across multiple requests.
+
+RequestSpecification requestSpec = given().
+                                   baseUri("https://api.example.com").
+                                   header("Content-Type", "application/json").
+                                   auth().basic("username", "password");
+Use in test - 
+ given()
+            .spec(requestSpec)
+            .body("{\"key\": \"value\"}")
+            .when()
+            .post("/endpoint")
+            .then()
+            .statusCode(201);
+
+A ResponseSpecification allows you to define common validations and checks for your HTTP responses. 
+This is useful for applying the same response assertions across multiple tests.
+
+ResponseSpecification responseSpec = expect().statusCode(200).header("Content-Type", "application/json")
+                                          .body("status", equalTo("success"));
+
+Use in test - 
+ given()
+            .baseUri("https://api.example.com")
+            .when()
+            .get("/endpoint")
+            .then()
+            .spec(responseSpec);
+
+
+# Explain the purpose of the ‘extract().jsonPath()’ method in Rest Assured ?
+The extract().jsonPath() method in Rest Assured is used to extract data from the JSON response of an HTTP request. 
+This method allows you to parse the JSON response and extract specific values, which can then be used for further 
+validation, processing, or in subsequent requests.
+
+JsonPath jsonPath = given()
+            .when()
+            .get("/users/123")
+            .then()
+            .statusCode(200)
+            .extract()
+            .jsonPath();
+
+        // Extract specific values from the JSON response
+        int id = jsonPath.getInt("id");
+        String name = jsonPath.getString("name");
+
+
+
 
 
 
