@@ -1,15 +1,38 @@
-why rest assured ?
+# why rest assured ?
 Its a java library for api automation testing. its an open source tool.
 As it a java library it Can be easily integrated with testng, maven, junit, allure report.
 It has the ability to verify http responses.
 rest assured follows bdd approach which makes readabiltiy easy.
 
-## what is static import in rest assured ?
- static imports are used to improve the readability and simplicity of your test code.Rest Assured makes extensive use of static methods to build HTTP requests 
- and assert responses. 
+# How do you add Rest Assured to your project?
+To add Rest Assured to your project, you'll need to include the Rest Assured library in your project's dependencies.
+<dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>5.5.0</version>
+      <scope>test</scope>
+</dependency>
+
+# Explain the main components of a Rest Assured test ?
+- Base URI and Base Path
+- RequestSpecification
+- http methods
+- response
+- assertion
+
+# How do you perform a simple GET request using Rest Assured?
+ RestAssured.baseURI = "https://jsonplaceholder.typicode.com";
+ Response response = given().when().get("/posts/1");
+ response.prettyPrint();
+ response.then().statusCode(200);
+ reponse.then().body("userId", equalTo(1));
+
+
+# what is static import in rest assured ?
+static imports are used to improve the readability and simplicity of your test code.Rest Assured makes extensive 
+use of static methods to build HTTP requests and assert responses. 
 
 import static io.restassured.RestAssured.*;
-
 public class ApiTest {
     @Test
     public void testGetUser() {
@@ -19,7 +42,39 @@ public class ApiTest {
     }
 }
 
-##  what are the authentications available ?
+# How do you validate JSON responses in Rest Assured?
+You can validate specific fields in the JSON response using the body method with matchers.
+response.then().statusCode(200);
+response.then().header("Content-Type", "application/json; charset=utf-8");
+response.then().body("userId", equalTo(1));
+
+# How can you handle cookies in Rest Assured ?
+You can extract cookies from a response using the getCookies method.
+Map<String, String> cookies = response.getCookies();
+
+# How do you handle query parameters in a Rest Assured request?
+By using the queryParam or queryParams methods. These methods allow you to add single or multiple query parameters 
+to your request.
+Map<String, Object> queryParams = new HashMap<>();
+queryParams.put("userId", 1);
+queryParams.put("id", 1);
+
+# How can you handle JSON response validation in Rest Assured when the expected JSON structure is complex and 
+contains nested elements?
+By using a combination of JSONPath expressions and the built-in matchers provided by Rest Assured. 
+
+# How can you handle response caching in Rest Assured?
+Key HTTP Headers for Caching
+Cache-Control: Controls caching mechanisms in browsers and intermediate caches.
+Expires: Provides a date/time after which the response is considered stale.
+ETag: Provides a unique identifier for a specific version of a resource.
+Last-Modified: Indicates the date and time at which the resource was last modified.
+
+# how to set ssl cert in rest assured ?
+By default, Rest Assured trusts all certificates, including self-signed certificates. This can be useful for 
+testing environments but is not recommended for production.
+
+# what are the authentications available ?
 - basic authetication
 - form based
 - OAuth1
@@ -29,22 +84,10 @@ public class ApiTest {
 response.getTime();
 response.getTimeIn(TimeUnit.SECONDS);
 
-## how to verify cookie, header and content type in api response ?
-
-
 ## What is the difference between given() and when() in Rest Assured?
 given() is used to set up the request, while when() is used to send the request.
 
-## how to handle response in rest assured ?
 
-## how to handle payload request ?
-
-## how to handle token and ssl cert in rest assured ?
-
-## what is Request specification ?
-
-
-## explain serialization and Desearalization ?
 
 
 
