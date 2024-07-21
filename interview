@@ -151,6 +151,39 @@ JsonPath jsonPath = given()
         int id = jsonPath.getInt("id");
         String name = jsonPath.getString("name");
 
+que) how to pass multiple headers ?
+1) either use
+Headers headers = new Headers();
+2) using map
+Map<String,Object> headers = new HashMap<>(MANDATORY_HEADERS);
+
+que) how to set multi-value headers ?
+for multi vaue headers, rest assured creates 2 entries ( key1 value1, key1 value2). here key is duplicated with diff values. since map do not allow
+duplicate entries we cannot use Map interface to set headers. Instead we need to use like this - 
+Header header1 = new Header(key1, value1);
+Header header1 = new Header(key1, value2);
+Headers headers = new Headers(header1,header2);
+
+que) how to assert response header ?
+To assert response header we need to use it under Then statement.
+then().assertThat().statusCode(200).header(key,value);
+
+que) how to extract headers ?
+Headers headers = given() ...   then().extract().headers();   
+s.o.u.t(header.getValue("X-Journey-Id");
+
+que) what is Request specification ?
+ allows you to predefine various aspects of a request, such as headers, query parameters, body content, cookies, authentication, and more. 
+By using a RequestSpecification, you can reuse configurations across multiple tests, ensuring consistency and reducing redundancy in your test code.
+
+que) how to extract a specific field from josn repsonse ?
+There are various ways like using jackson library, gson, rest assureds JsonPath().
+String logErrorId = response.getBody().jsonBath().getString("logErrorid");
+
+que) how to do swagger compliance assertion ?
+Using json schema validator library.
+response().then().body(matchesJsonSchemaInClasspath("/src/test/resources/swagger.yaml"));
+
 
 
 
