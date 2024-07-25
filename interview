@@ -184,6 +184,15 @@ que) how to do swagger compliance assertion ?
 Using json schema validator library.
 response().then().body(matchesJsonSchemaInClasspath("/src/test/resources/swagger.yaml"));
 
+que) how to send query param ?
+By using param method or queryParam method.      
+given().baseUri().queryParam("key","value")
+given().baseUri().queryParam("key","value1","value2","value3")       // multi value query param.
+
+Map<String,String> queryparam = new HashMap<>();
+queryparam.put("key","value1")
+
+
 
 
 
