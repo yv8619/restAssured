@@ -5,6 +5,13 @@ Response response = RestAssured.given().log().all()
                       .then().log().all().extract().response();
 Assert.assertEquals(response.statusCode(),200);
 
+
+given, when, then .. are all static methods from RestAssured class which can be called directly.
+Return type of given() is: RequestSpecification
+Return type of when() is: Response
+Return type of then() is: ValidatableResponse
+
+
 - since headers are in the form of key-pair, we use string of map to handle headers.
 public static getRequestSpecification(Map<String, ?> headers) {
 }
