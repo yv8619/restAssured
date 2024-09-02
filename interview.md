@@ -207,7 +207,7 @@ when()
     .body("$", not(hasKey("age")));
  
 
-## how to Pass value from one API to another API ?
+## How to Pass value from one API to another API ?
 - store the response of first api using extract() method
 Response ptyToken = given()
             .contentType("application/json")
@@ -233,8 +233,46 @@ Response ptyToken = given()
 }
 
 
+## How can you handle json response validation in rest assured when the expected response structure is complex and contain nested elements ?
+1. Using JSONPath for Nested Elements
+2.
+    {
+  "status": "success",
+  "data": {
+    "user": {
+      "id": 1,
+      "name": "John Doe",
+      "contacts": {
+        "email": "john.doe@example.com",
+        "phone": "123-456-7890"
+      },
+      "roles": [
+        {"role": "admin"},
+        {"role": "user"}
+      ]
+    }
+  }
+}
+
+.body("status", equalTo("success"))
+.body("data.user.id", equalTo(1))
+.body("data.user.name", equalTo("John Doe"))
+.body("data.user.contacts.email", equalTo("john.doe@example.com"))
+.body("data.user.contacts.phone", equalTo("123-456-7890"))
+ .body("data.user.roles.role", hasItems("admin", "user"));
 
 
+
+## How can you handle json response validation in rest assured when the expected response structure is complex and contain nested elements ?
+- If the response contains data that is not critical for your test, validate only the necessary fields. This minimizes the impact of changes in non-essential parts of the response.
+- When response values are dynamic but follow a predictable pattern, you can use regular expressions or contains matchers to validate the response.
+.body("data.timestamp", matchesPattern("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z")) 
+.body("data.status", containsString("active"));
+- Using JSON Schema Validation
+  .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("responseSchema.json"));
+
+
+## How do you capture response from one request and pass it to another request ?
 
 
 
